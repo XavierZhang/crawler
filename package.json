@@ -1,0 +1,29 @@
+{
+  "name": "icard-crawler",
+  "version": "1.0.0",
+  "engines": {
+    "node": "5.4.0"
+  },
+  "description": "This is a crawler for the data of card.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^1.5.2",
+    "cheerio": "^0.19.0",
+    "cron": "^1.1.0",
+    "debug": "^2.2.0",
+    "lodash": "^4.0.0",
+    "mysql": "^2.10.2",
+    "request": "^2.67.0",
+    "transliteration": "^0.1.1"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.3.13",
+    "babel-register": "^6.4.3"
+  }
+}

@@ -1,0 +1,32 @@
+CREATE DATABASE IF NOT EXISTS crawler;
+USE crawler;
+
+CREATE TABLE IF NOT EXISTS Province
+(
+	ProviceID INT AUTO_INCREMENT PRIMARY KEY,
+	Code VARCHAR(10),
+    ChineseName NVARCHAR(10) NOT NULL,
+    Pinyin VARCHAR(50),
+    EnglishName VARCHAR(100)
+);
+
+CREATE TABLE IF NOT EXISTS City
+(
+	CityID INT AUTO_INCREMENT PRIMARY KEY,
+	Code VARCHAR(10),
+    ProviceID INT,
+    ChineseName NVARCHAR(10) NOT NULL,
+    Pinyin VARCHAR(50),
+    EnglishName VARCHAR(100)
+);
+
+CREATE TABLE IF NOT EXISTS County
+(
+	CountyID INT AUTO_INCREMENT PRIMARY KEY,
+	Code VARCHAR(10),
+    ProviceID INT,
+    CityID INT,
+    ChineseName NVARCHAR(10) NOT NULL,
+    Pinyin VARCHAR(50),
+    EnglishName VARCHAR(100)
+);
