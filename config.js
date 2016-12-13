@@ -3,7 +3,7 @@ var mysql = require('mysql');
 exports.db = mysql.createConnection({
   host: '127.0.0.1', // 数据库地址
   port: 3306, // 数据库端口
-  database: 'iCar', // 数据库名称
+  database: 'crawler', // 数据库名称
   user: 'root', // 数据库用户
   password: 'Welin_local' // 数据库用户对应的密码
 });

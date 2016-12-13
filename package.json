@@ -1,10 +1,10 @@
 {
-  "name": "icard-crawler",
+  "name": "crawler",
   "version": "1.0.0",
   "engines": {
-    "node": "5.4.0"
+    "node": "4.4.7"
   },
-  "description": "This is a crawler for the data of card.",
+  "description": "This is a crawler.",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
