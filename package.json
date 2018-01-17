@@ -7,7 +7,7 @@
   "description": "This is a crawler.",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "gulp serve",
     "build": "gulp",
     "test": "mocha"
   },
@@ -42,6 +42,7 @@
     "gulp-babel": "^7.0.0",
     "gulp-load-plugins": "^1.5.0",
     "gulp-newer": "^1.4.0",
+    "gulp-nodemon": "^2.2.1",
     "run-sequence": "^2.2.1"
   },
   "babel": {

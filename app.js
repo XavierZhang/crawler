@@ -1,4 +1,4 @@
-require("babel-register");
+// require("babel-register");
 var path = require('path');
 var spawn = require('child_process').spawn;
 var config = require('./config');
