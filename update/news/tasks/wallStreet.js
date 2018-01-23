@@ -89,36 +89,80 @@ export default class WallStreet extends BaseTask {
                                 if (item.image_uris && item.image_uris.length > 0) {
                                     pic_url = item.image_uris[0];
                                 }
-                                // console.log("item.content_more--->",description)
+
+                                var titleSchema = /^【(.+?)】/gm;
+                                var _title = "";
+                                var titleGroup = titleSchema.exec(item.content_text);
+                                if (titleGroup && titleGroup.length > 1) {
+                                    _title = titleGroup[1];
+                                    description = description.replace(titleGroup[0], "");
+                                }
                                 var content = [{ text: `${description}${item.content_more.replace(/<[^>]+>/gi, "")}` }];
                                 var source_key = `${_this.options.className}_${item.id}`;
                                 var classify = _this.options.classify;
                                 // console.log("content--->", JSON.stringify(content))
-                                db.sequelize.transaction(t => {
-                                    db.NewsDetails.create({
-                                        content: JSON.stringify(content),
-                                        news: {
-                                            title: "",
-                                            description: description,
-                                            pic_url: pic_url,
-                                            source_key: source_key,
-                                            source_url: source_url,
-                                            source_name: source,
-                                            author_name: "",
-                                            classify_id: classify,
-                                            source_create_date: time,
-                                            status: 1
-                                        }
-                                    }, {
-                                            include: [{
-                                                association: db.NewsDetails.News
-                                            }]
-                                        })
+                                axios({
+                                    url: `http://localhost:50001/extract?url=${source_url}`
                                 })
-                                    .then(ret => {
-                                        console.log("successful " + item.id);
+                                    .then(sc => {
+                                        if (sc.data && sc.data.message && sc.data.message.text) {
+                                            content = [{ text: `${sc.data.message.text}` }];
+                                        }
+
+                                        db.sequelize.transaction(t => {
+                                            db.NewsDetails.create({
+                                                content: JSON.stringify(content),
+                                                news: {
+                                                    title: _title,
+                                                    description: description,
+                                                    pic_url: pic_url,
+                                                    source_key: source_key,
+                                                    source_url: source_url,
+                                                    source_name: source,
+                                                    author_name: "",
+                                                    classify_id: classify,
+                                                    source_create_date: time,
+                                                    status: 1
+                                                }
+                                            }, {
+                                                    include: [{
+                                                        association: db.NewsDetails.News
+                                                    }]
+                                                })
+                                        })
+                                            .then(ret => {
+                                                console.log("successful " + item.id);
+                                            })
+                                            .catch(err => console.error(err));
                                     })
-                                    .catch(err => console.error(err));
+                                    .catch(err => {
+                                        console.error(err);
+                                        db.sequelize.transaction(t => {
+                                            db.NewsDetails.create({
+                                                content: JSON.stringify(content),
+                                                news: {
+                                                    title: _title,
+                                                    description: description,
+                                                    pic_url: pic_url,
+                                                    source_key: source_key,
+                                                    source_url: source_url,
+                                                    source_name: source,
+                                                    author_name: "",
+                                                    classify_id: classify,
+                                                    source_create_date: time,
+                                                    status: 1
+                                                }
+                                            }, {
+                                                    include: [{
+                                                        association: db.NewsDetails.News
+                                                    }]
+                                                })
+                                        })
+                                            .then(ret => {
+                                                console.log("successful " + item.id);
+                                            })
+                                            .catch(err => console.error(err));
+                                    });
                             });
                         }
                     })

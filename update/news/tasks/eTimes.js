@@ -73,10 +73,12 @@ export default class ETimes extends BaseTask {
                                 axios({
                                     url: item.url
                                 }).then(detailBody => {
-                                    // console.log(detailBody.data)
+                                    if (detailBody.status !== 200) {
+                                        return;
+                                    }
                                     var $ = ci.load(detailBody.data);
                                     var source = _this.getSchemaValue($, "source", _this.options.source);
-                                    var tags = _this.getSchemaValue($, "tag");
+                                    // var tags = _this.getSchemaValue($, "tag");
 
                                     var time = _this.getSchemaValue($, "div.author span.time");
                                     var tempName = _this.getSchemaValue($, "author_name");
@@ -88,13 +90,13 @@ export default class ETimes extends BaseTask {
                                         author_name = stringUtil.first(author_name, author_name.indexOf("·")).trim();
                                     }
 
-                                    var description = stringUtil.first(_this.getSchemaValue($, "description"), 200);
+                                    var description = _.trimStart(stringUtil.first(_this.getSchemaValue($, "description"), 200), "e公司讯，");
                                     var pic_url = "";
                                     if (item.imgs && item.imgs.length > 0) {
                                         pic_url = item.imgs[0];
                                         pic_url = _this.getSchemaValue($, "pic_url", pic_url);
                                     }
-                                    var content = [{ text: _this.getSchemaValue($, "content") }];
+                                    var content = [{ text: _.trimStart(_this.getSchemaValue($, "content"), "e公司讯，") }];
                                     var source_key = `${_this.options.className}_${item.id}`;
                                     var source_url = item.url;
                                     var classify = _this.options.classify;

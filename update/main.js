@@ -1,7 +1,6 @@
 import Debug from 'debug';
 import fs from "fs";
 import moment from "moment";
-// var schedule = require('node-schedule');
 var debug = Debug('crawler:main');
 const dir = "./update/";
 
@@ -11,6 +10,14 @@ export default function () {
   // console.log("match--->", sourceSchema.exec("投面直接堵上了当前业人才工作的<a href=\"http://www.csrc.gov.cn/pub/newsite/zjhxwfb/xwdd/201801/t20180111_332392.html\" rel=\"nofollow\">意见</a>》。《意见》旨在进\n中国央行答复有关人民币逆周期系数调整的问题称，人民币中间价报价行根据多因素决定是否调整逆周期系数。（全文）一步很多资管产品非标投资的重要渠道。（<a href=\"http://www.yicai.com/news/5391100.html\" rel=\"nofollow\">一财</a>）</p>\n"));
   // var sourceSchema = /。（(.+?)）\n?$/ig;
   // console.log("match--->", sourceSchema.exec("中国央行答复有关人民币逆周期局（ATO）正系数调整的问题称，人民币中间价报价行根据多因素决定是否调整逆周期系数。（全文）\n"));
+  // var text = `ss【两市平开】
+  // 沪指开盘报3504.34点，涨0.09%。
+  // 深成指开盘报11514.56点，涨0.01%。
+  // asdf【af收费科技】s违反dfwer
+  // 创业板开盘报1767.33点，跌0.05%。`;
+  // var sourceSchema = /^【(.+?)】/gm;
+  // var group = sourceSchema.exec(text);
+  // console.log("match--->", group, text.replace(group[0], ""));
   // return;
   var fileList = fs.readdirSync(dir, 'utf-8');
   // var jobs = [];

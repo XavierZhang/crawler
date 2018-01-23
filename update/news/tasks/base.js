@@ -29,6 +29,9 @@ export default class BaseTask {
         else {
             val = stringUtil.getValue($("div.article-detail " + schema).text()).trim();
         }
+        if (stringUtil.isNullOrWhiteSpace(val)) {
+            console.log("aljf---->", schema, this.options.schema[schema]);
+        }
         return val;
     }
 }

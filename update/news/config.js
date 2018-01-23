@@ -18,42 +18,42 @@ exports.sources =
             autoUpdate: '*/8 * * * *',
             jobName: "eTimes Job--->"
         },
-        {
-            url: `https://api-prod.wallstreetcn.com/apiv1/content/lives?channel=global-channel&client=pc&limit=20`,
-            className: "wallStreet",
-            source: "华尔街见闻",  //可在schema中配置规则覆盖
-            classify: "shehui", //可在schema中配置规则覆盖
-            schema: {
-                // source: "span.source",
-                // // tag: "div.article-tags",
-                // title: "h1",
-                // author_name: "div.author",
-                // // author_avatar_url: "",
-                // description: "div.content",
-                // pic_url: "",
-                // content: "div.content"
-            },
-            autoUpdate: '*/3 * * * *',
-            jobName: "wallStreet Job--->"
-        },
-        {
-            url: `http://36kr.com/api/newsflash?per_page=20`,
-            className: "flash36kr",
-            source: "36氪",  //可在schema中配置规则覆盖
-            classify: "keji", //可在schema中配置规则覆盖
-            schema: {
-                // source: "span.source",
-                // // tag: "div.article-tags",
-                // title: "h1",
-                // author_name: "div.author",
-                // // author_avatar_url: "",
-                // description: "div.content",
-                // pic_url: "",
-                // content: "div.content"
-            },
-            autoUpdate: '*/2 * * * *',
-            jobName: "36kr Job--->"
-        }
+        // {
+        //     url: `https://api-prod.wallstreetcn.com/apiv1/content/lives?channel=global-channel&client=pc&limit=20`,
+        //     className: "wallStreet",
+        //     source: "华尔街见闻",  //可在schema中配置规则覆盖
+        //     classify: "shehui", //可在schema中配置规则覆盖
+        //     schema: {
+        //         // source: "span.source",
+        //         // // tag: "div.article-tags",
+        //         // title: "h1",
+        //         // author_name: "div.author",
+        //         // // author_avatar_url: "",
+        //         // description: "div.content",
+        //         // pic_url: "",
+        //         // content: "div.content"
+        //     },
+        //     autoUpdate: '*/3 * * * *',
+        //     jobName: "wallStreet Job--->"
+        // },
+        // {
+        //     url: `http://36kr.com/api/newsflash?per_page=20`,
+        //     className: "flash36kr",
+        //     source: "36氪",  //可在schema中配置规则覆盖
+        //     classify: "keji", //可在schema中配置规则覆盖
+        //     schema: {
+        //         // source: "span.source",
+        //         // // tag: "div.article-tags",
+        //         // title: "h1",
+        //         // author_name: "div.author",
+        //         // // author_avatar_url: "",
+        //         // description: "div.content",
+        //         // pic_url: "",
+        //         // content: "div.content"
+        //     },
+        //     autoUpdate: '*/2 * * * *',
+        //     jobName: "36kr Job--->"
+        // }
     ];
 
 exports.sql = {
@@ -73,3 +73,5 @@ exports.sql = {
         }
     }
 }
+
+exports.extractor = "dev.extractor.bintutech.com";
