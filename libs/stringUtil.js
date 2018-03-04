@@ -48,6 +48,25 @@ module.exports = (function () {
     return _last(str, str.length - idx - subStr.length);
   }
 
+  //include the end character
+  var _between = function (str, start, end) {
+    if (!str || str.length <= 0 || start < 0) {
+      return "";
+    }
+
+    var length = 0;
+    if (!_isNullOrWhiteSpace(end)) {
+      length = end - start;
+    }
+    else {
+      length = str.length - start;
+    }
+    if (length < 0) {
+      return str;
+    }
+    return str.substr(start, length + 1);
+  }
+
   var _htmlEncode = function (str) {
     var ele = document.createElement('span');
     ele.appendChild(document.createTextNode(str));
@@ -118,6 +137,7 @@ module.exports = (function () {
     last: _last,
     before: _before,
     after: _after,
+    between: _between,
     htmlEncode: _htmlEncode,
     randomString: _randomString,
     dataLength: _dataLength,

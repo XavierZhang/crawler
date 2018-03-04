@@ -5,6 +5,7 @@ exports.sources =
             className: "eTimes",
             source: "证券时报·e公司",  //可在schema中配置规则覆盖
             classify: "caijing", //可在schema中配置规则覆盖
+            detailSchema: "div.article-detail",
             schema: {
                 source: "span.source",
                 // tag: "div.article-tags",
@@ -18,42 +19,80 @@ exports.sources =
             autoUpdate: '*/8 * * * *',
             jobName: "eTimes Job--->"
         },
-        // {
-        //     url: `https://api-prod.wallstreetcn.com/apiv1/content/lives?channel=global-channel&client=pc&limit=20`,
-        //     className: "wallStreet",
-        //     source: "华尔街见闻",  //可在schema中配置规则覆盖
-        //     classify: "shehui", //可在schema中配置规则覆盖
-        //     schema: {
-        //         // source: "span.source",
-        //         // // tag: "div.article-tags",
-        //         // title: "h1",
-        //         // author_name: "div.author",
-        //         // // author_avatar_url: "",
-        //         // description: "div.content",
-        //         // pic_url: "",
-        //         // content: "div.content"
-        //     },
-        //     autoUpdate: '*/3 * * * *',
-        //     jobName: "wallStreet Job--->"
-        // },
-        // {
-        //     url: `http://36kr.com/api/newsflash?per_page=20`,
-        //     className: "flash36kr",
-        //     source: "36氪",  //可在schema中配置规则覆盖
-        //     classify: "keji", //可在schema中配置规则覆盖
-        //     schema: {
-        //         // source: "span.source",
-        //         // // tag: "div.article-tags",
-        //         // title: "h1",
-        //         // author_name: "div.author",
-        //         // // author_avatar_url: "",
-        //         // description: "div.content",
-        //         // pic_url: "",
-        //         // content: "div.content"
-        //     },
-        //     autoUpdate: '*/2 * * * *',
-        //     jobName: "36kr Job--->"
-        // }
+        {
+            url: `https://api-prod.wallstreetcn.com/apiv1/content/lives?channel=global-channel&client=pc&limit=20`,
+            className: "wallStreet",
+            source: "华尔街见闻",  //可在schema中配置规则覆盖
+            classify: "shehui", //可在schema中配置规则覆盖
+            schema: {
+                // source: "span.source",
+                // // tag: "div.article-tags",
+                // title: "h1",
+                // author_name: "div.author",
+                // // author_avatar_url: "",
+                // description: "div.content",
+                // pic_url: "",
+                // content: "div.content"
+            },
+            autoUpdate: '*/3 * * * *',
+            jobName: "wallStreet Job--->"
+        },
+        {
+            url: `http://36kr.com/api/newsflash?per_page=20`,
+            className: "flash36kr",
+            source: "36氪",  //可在schema中配置规则覆盖
+            classify: "keji", //可在schema中配置规则覆盖
+            schema: {
+                // source: "span.source",
+                // // tag: "div.article-tags",
+                // title: "h1",
+                // author_name: "div.author",
+                // // author_avatar_url: "",
+                // description: "div.content",
+                // pic_url: "",
+                // content: "div.content"
+            },
+            autoUpdate: '*/2 * * * *',
+            jobName: "36kr Job--->"
+        },
+        {
+            url: `http://www.tmtpost.com/nictation?r={random}`,
+            className: "tmtPost",
+            source: "钛媒体瞬眼播报",  //可在schema中配置规则覆盖
+            classify: "keji", //可在schema中配置规则覆盖
+            detailSchema: "article",
+            schema: {
+                // source: "span.source",
+                // tag: "div.article-tags",
+                // title: "h1",
+                // author_name: "div.author",
+                // author_avatar_url: "",
+                // description: "div.content",
+                pic_url: "",
+                content: "p.inner"
+            },
+            autoUpdate: '*/2 * * * *',
+            jobName: "tmtPost Job--->"
+        },
+        {
+            url: `http://www.jiemian.com/lists/4.html?r={random}`,
+            className: "jiemian",
+            source: "界面新闻",  //可在schema中配置规则覆盖
+            classify: "shehui", //可在schema中配置规则覆盖
+            detailSchema: "div.article-view",
+            schema: {
+                // source: "span.source",
+                // tag: "div.article-tags",
+                // title: "h1",
+                // author_name: "div.author",
+                // author_avatar_url: "",
+                // description: "div.content",
+                pic_url: "",
+                content: "div.article-content"
+            },
+            autoUpdate: '*/2 * * * *',
+            jobName: "jiemian Job--->"
+        },
     ];
 
 exports.sql = {

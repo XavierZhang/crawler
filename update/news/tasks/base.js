@@ -23,14 +23,15 @@ export default class BaseTask {
 
     getSchemaValue($, schema, defaultValue) {
         var val = defaultValue || "";
+        var detailSchema = `${this.options.detailSchema} ` || "";
         if (this.options.schema[schema]) {
-            val = stringUtil.getValue($("div.article-detail " + this.options.schema[schema]).text()).trim();
+            val = stringUtil.getValue($(`${detailSchema}${this.options.schema[schema]}`).text()).trim();
         }
         else {
-            val = stringUtil.getValue($("div.article-detail " + schema).text()).trim();
+            val = stringUtil.getValue($(`${detailSchema}${schema}`).text()).trim();
         }
         if (stringUtil.isNullOrWhiteSpace(val)) {
-            console.log("aljf---->", schema, this.options.schema[schema]);
+            console.log("empty value---->", schema, this.options.schema[schema]);
         }
         return val;
     }
