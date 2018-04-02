@@ -10,6 +10,9 @@ export default class BaseTask {
     constructor(props) {
         var _options = props || {};
         this.options = _options;
+        if (!this.options.extractor) {
+            this.options.extractor = "http://localhost:50001";
+        }
         var _this = this;
         this.job = schedule.scheduleJob(_options.autoUpdate, function () {
             console.log(`${moment().format()}\t开始执行定时爬虫任务${_options.jobName ? _options.jobName : ""}`, _options.autoUpdate);

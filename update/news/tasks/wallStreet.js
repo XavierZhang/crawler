@@ -102,7 +102,7 @@ export default class WallStreet extends BaseTask {
                                 var classify = _this.options.classify;
                                 // console.log("content--->", JSON.stringify(content))
                                 axios({
-                                    url: `http://localhost:50001/extract?url=${source_url}`
+                                    url: `${_this.options.extractor}/extract?url=${source_url}`
                                 })
                                     .then(sc => {
                                         if (sc.data && sc.data.message && sc.data.message.text) {

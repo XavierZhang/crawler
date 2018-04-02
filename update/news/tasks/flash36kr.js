@@ -99,7 +99,7 @@ export default class Flash36kr extends BaseTask {
                                 // console.log("content--->", JSON.stringify(content))
 
                                 axios({
-                                    url: `http://localhost:50001/extract?url=${source_url}`
+                                    url: `${_this.options.extractor}/extract?url=${source_url}`
                                 })
                                     .then(sc => {
                                         // console.log("source---->", sc.data);
