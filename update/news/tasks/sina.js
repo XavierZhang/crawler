@@ -121,32 +121,60 @@ export default class Sina extends BaseTask {
                             if (ret.saveData) {
                                 function _run() {
                                     function saveNews(news_data, sc) {
-                                        // console.log("source---->", news_data, sc.data.message.title);
-                                        var content = "";
-                                        if (sc.data && sc.data.message && sc.data.message.text) {
-                                            content = [{ text: `${sc.data.message.text}` }];
-                                        }
-                                        news_data.description = `${stringUtil.first(sc.data.message.text.replace(/[^。]\n[^。]/g, "。").replace(/\n/g, ""), 200)}……`;
-                                        news_data.title = sc.data.message.title;
-                                        db.sequelize.transaction(t => {
-                                            db.NewsDetails.create({
-                                                content: JSON.stringify(content),
-                                                news: news_data
-                                            }, {
-                                                    include: [{
-                                                        association: db.NewsDetails.News
-                                                    }]
-                                                })
+                                        var $body = ci.load(sc.data);
+                                        // console.log("source---->", news_data);
+                                        var con_arr = [];
+                                        $body("article.art_box p.art_p").each((idx, elem) => {
+                                            var $elem = ci.load(elem);
+                                            if ($elem("a").length > 0) {
+                                                $elem("a").parent().empty();
+                                            }
+                                            con_arr.push($elem.text());
                                         })
-                                            .then(ret => {
-                                                console.log("successful---->", ret);
+                                        var content = "";
+                                        if (con_arr.length > 0) {
+                                            content = [{ text: con_arr.join("\n") }];
+                                            var desc = con_arr.join("");
+                                            if (desc.length > 200) {
+                                                var _desc = stringUtil.first(desc, 200);
+                                                var _group = /[^。，；：《》？?、‘’）（\(\)【】\{\}\[\]<\+=>！“”]+([。，；：《》？?、‘’）（\(\)【】\{\}\[\]<\+=>！“”]+)$/.exec(_desc)
+                                                if (_group && _group.length > 1) {
+                                                    news_data.description = `${_desc.substr(0, _desc.length - _group[1].length)}……`;
+                                                }
+                                                else {
+                                                    news_data.description = `${_desc}……`;
+                                                }
+                                            }
+                                            else {
+                                                news_data.description = desc;
+                                            }
+                                            news_data.title = $body("article.art_box h1.art_tit_h1").text();
+                                            // console.log("news_date", news_data);
+                                            // return;
+                                            db.sequelize.transaction(t => {
+                                                db.NewsDetails.create({
+                                                    content: JSON.stringify(content),
+                                                    news: news_data
+                                                }, {
+                                                        include: [{
+                                                            association: db.NewsDetails.News
+                                                        }]
+                                                    })
                                             })
-                                            .catch(err => console.error(err));
+                                                .then(ret => {
+                                                    console.log("successful---->", ret);
+                                                })
+                                                .catch(err => console.error(err));
+                                        }
                                     }
                                     return ret.data.reduce((promise, item) => {
                                         // console.log("item--->", promise, item);
+                                        // var _url = `${_this.options.extractor}/extract?url=${encodeURIComponent("http://interface.sina.cn/pc_to_wap.d.html?ref=" + item.url)}`;
+                                        // var _url = `http://interface.sina.cn/pc_to_wap.d.html?ref=${encodeURIComponent("http://tech.sina.com.cn/it/2018-04-09/doc-ifyvtmxe4156891.shtml")}`;
+                                        var _url = `http://interface.sina.cn/pc_to_wap.d.html?ref=${encodeURIComponent(item.url)}`;
+                                        // console.log("url===>", _url);
                                         return promise.then(() => axios({
-                                            url: `${_this.options.extractor}/extract?url=${item.url}`
+                                            url: _url
                                         })).then((sc) => {
                                             var news_data = {
                                                 title: item.title,

@@ -18,6 +18,14 @@ export default function () {
   // var sourceSchema = /^【(.+?)】/gm;
   // var group = sourceSchema.exec(text);
   // console.log("match--->", group, text.replace(group[0], ""));
+  // var _desc = "中国央行答复有关人民币逆周期局（ATO）正系数调整的问题称《？(?)";
+  // var _group = /[^。，；：《》？?、‘’）（\(\)【】\{\}\[\]<\+=>！“”]+([。，；：《》？?、‘’）（\(\)【】\{\}\[\]<\+=>！“”]+)$/.exec(_desc);
+  // if (_group && _group.length > 1) {
+  //   console.log("true--->", `${_desc.substr(0, _desc.length - _group[1].length)}……`);
+  // }
+  // else {
+  //   console.log("false---->", `${_desc}……`);
+  // }
   // return;
   var fileList = fs.readdirSync(dir, 'utf-8');
   // var jobs = [];

@@ -16,7 +16,7 @@ export default class BaseTask {
         var _this = this;
         this.job = schedule.scheduleJob(_options.autoUpdate, function () {
             console.log(`${moment().format()}\t开始执行定时爬虫任务${_options.jobName ? _options.jobName : ""}`, _options.autoUpdate);
-            _this.processList(stringUtil.format(_this.options.url, { timestamp: "" }));
+            _this.processList(stringUtil.format(_this.options.url, { timestamp: "", random: Math.random(), lastTime: moment.unix() }));
         });
     }
 
